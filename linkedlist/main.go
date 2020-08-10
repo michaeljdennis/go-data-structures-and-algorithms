@@ -28,8 +28,8 @@ func NewNode(value int, next *Node) *Node {
 }
 
 // AddFirst ...
-func (l *List) AddFirst(s int) {
-	tmp := NewNode(s, l.head)
+func (l *List) AddFirst(n int) {
+	tmp := NewNode(n, l.head)
 	l.head = tmp
 	l.len++
 }
@@ -43,24 +43,20 @@ func (l *List) GetFirst() int {
 }
 
 // AddLast ...
-func (l *List) AddLast(s int) {
-	current := l.head
-	tmp := NewNode(s, nil)
+func (l *List) AddLast(n int) {
+	tmp := NewNode(n, nil)
+	l.len++
 
-	for {
-		if l.head == nil {
-			l.head = tmp
-			break
-		}
-		if current.next != nil {
-			current = current.next
-			continue
-		}
-		current.next = tmp
-		break
+	if l.head == nil {
+		l.head = tmp
+		return
 	}
 
-	l.len++
+	current := l.head
+	for current.next != nil {
+		current = current.next
+	}
+	current.next = tmp
 }
 
 // GetLast ...
@@ -71,10 +67,7 @@ func (l *List) GetLast() int {
 
 	tmp := l.head
 
-	for {
-		if tmp.next == nil {
-			break
-		}
+	for tmp.next != nil {
 		tmp = tmp.next
 	}
 
@@ -128,23 +121,24 @@ func (l *List) Len() int {
 	return l.len
 }
 
-// PrintList ...
-func (l *List) PrintList() {
-	current := l.head
-	s := []int{}
-	var done bool
+// GetList ...
+func (l *List) GetList() []int {
+	tmp := l.head
+	ls := []int{}
 
 	if l.head == nil {
-		fmt.Println(s)
-		return
+		return ls
 	}
 
-	for !done {
-		s = append(s, current.value)
-		if current.next == nil {
-			done = true
-		}
-		current = current.next
+	for tmp != nil {
+		ls = append(ls, tmp.value)
+		tmp = tmp.next
 	}
-	fmt.Println(s)
+
+	return ls
+}
+
+// PrintList ...
+func (l *List) PrintList() {
+	fmt.Println(l.GetList())
 }

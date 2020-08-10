@@ -13,7 +13,7 @@ func TestAddFirst(t *testing.T) {
 	got := list.GetFirst()
 
 	if want != got {
-		t.Errorf("First node value in list incorrect: want \"%d\", got \"%d\"", want, got)
+		t.Errorf("First node value in list incorrect - want: %d, got: %d", want, got)
 	}
 }
 
@@ -26,7 +26,25 @@ func TestAddLast(t *testing.T) {
 	got := list.GetLast()
 
 	if want != got {
-		t.Errorf("Last node in list incorrect: want %d, got %d", want, got)
+		t.Errorf("Last node in list incorrect - want: %d, got: %d", want, got)
+	}
+}
+
+func TestReverse(t *testing.T) {
+	list := NewList()
+	list.AddLast(0)
+	list.AddLast(1)
+	list.AddLast(2)
+	list.Reverse()
+
+	want := []int{2, 1, 0}
+	got := list.GetList()
+
+	for i, v := range want {
+		if v != got[i] {
+			t.Errorf("Reversed list incorrect - want: %+v, got: %+v", want, got)
+			break
+		}
 	}
 }
 
@@ -41,7 +59,7 @@ func TestDelete_FirstNode(t *testing.T) {
 	got := list.Len()
 
 	if want != got {
-		t.Errorf("List length incorrect: want %d, got %d", want, got)
+		t.Errorf("List length incorrect - want: %d, got: %d", want, got)
 	}
 }
 
@@ -56,6 +74,6 @@ func TestDelete_LastNode(t *testing.T) {
 	got := list.Len()
 
 	if want != got {
-		t.Errorf("List length incorrect: want %d, got %d", want, got)
+		t.Errorf("List length incorrect - want: %d, got: %d", want, got)
 	}
 }
