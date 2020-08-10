@@ -83,7 +83,18 @@ func (l *List) GetLast() int {
 
 // Reverse ...
 func (l *List) Reverse() {
-	// TODO:
+	var prev *Node
+	tmp := l.head
+	next := tmp.next
+
+	for next != nil {
+		next = tmp.next
+		tmp.next = prev
+		prev = tmp
+		tmp = next
+	}
+
+	l.head = prev
 }
 
 // Delete ...
