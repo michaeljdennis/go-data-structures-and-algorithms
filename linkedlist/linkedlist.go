@@ -1,6 +1,9 @@
 package linkedlist
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 // List ...
 type List struct {
@@ -35,11 +38,11 @@ func (l *List) AddFirst(n int) {
 }
 
 // GetFirst ...
-func (l *List) GetFirst() int {
+func (l *List) GetFirst() (int, error) {
 	if l.head == nil {
-		return 0
+		return 0, errors.New("list is empty")
 	}
-	return l.head.value
+	return l.head.value, nil
 }
 
 // AddLast ...
@@ -60,9 +63,9 @@ func (l *List) AddLast(n int) {
 }
 
 // GetLast ...
-func (l *List) GetLast() int {
+func (l *List) GetLast() (int, error) {
 	if l.head == nil {
-		return 0
+		return 0, errors.New("list is empty")
 	}
 
 	tmp := l.head
@@ -71,16 +74,15 @@ func (l *List) GetLast() int {
 		tmp = tmp.next
 	}
 
-	return tmp.value
+	return tmp.value, nil
 }
 
 // Reverse ...
 func (l *List) Reverse() {
-	var prev *Node
+	var prev, next *Node
 	tmp := l.head
-	next := tmp.next
 
-	for next != nil {
+	for tmp != nil {
 		next = tmp.next
 		tmp.next = prev
 		prev = tmp
@@ -91,9 +93,9 @@ func (l *List) Reverse() {
 }
 
 // Delete ...
-func (l *List) Delete(n int) {
+func (l *List) Delete(n int) error {
 	if l.head == nil {
-		return
+		return errors.New("list is empty")
 	}
 
 	var prev *Node
@@ -114,6 +116,8 @@ func (l *List) Delete(n int) {
 		prev = tmp
 		tmp = tmp.next
 	}
+
+	return nil
 }
 
 // Len ...
@@ -122,20 +126,21 @@ func (l *List) Len() int {
 }
 
 // GetList ...
-func (l *List) GetList() []int {
+func (l *List) GetList() ([]int, error) {
 	tmp := l.head
-	ls := []int{}
 
-	if l.head == nil {
-		return ls
+	if tmp == nil {
+		return nil, errors.New("list is empty")
 	}
+
+	ls := []int{}
 
 	for tmp != nil {
 		ls = append(ls, tmp.value)
 		tmp = tmp.next
 	}
 
-	return ls
+	return ls, nil
 }
 
 // PrintList ...
