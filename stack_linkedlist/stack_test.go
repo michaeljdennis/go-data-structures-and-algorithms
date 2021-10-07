@@ -25,19 +25,35 @@ func TestPop(t *testing.T) {
 	stack.Push(2)
 	stack.Push(3)
 
+	want := 4
+	if stack.Len() != want {
+		t.Errorf("stack length incorrect - want: %d, got: %d", want, stack.Len())
+	}
+
 	got, ok := stack.Pop()
 	if !ok {
 		t.Error("no value popped")
 	}
-
-	want := 3
-	if want != stack.Len() {
-		t.Errorf("stack length incorrect - want: %d, got: %d", want, got)
-	}
-
 	want = 3
 	if want != got {
 		t.Errorf("wrong value popped - want: %d, got: %d", want, got)
+	}
+	want = 3
+	if want != stack.Len() {
+		t.Errorf("stack length incorrect - want: %d, got: %d", want, stack.Len())
+	}
+
+	got, ok = stack.Pop()
+	if !ok {
+		t.Error("no value popped")
+	}
+	want = 2
+	if want != got {
+		t.Errorf("wrong value popped - want: %d, got: %d", want, got)
+	}
+	want = 2
+	if want != stack.Len() {
+		t.Errorf("stack length incorrect - want: %d, got: %d", want, stack.Len())
 	}
 }
 
@@ -97,7 +113,7 @@ func TestEmpty(t *testing.T) {
 
 	stack.Empty()
 
-	want = 3
+	want = 0
 	got = stack.Len()
 	if want != got {
 		t.Errorf("stack length incorrect - want: %d, got: %d", want, got)

@@ -55,6 +55,7 @@ func (s *Stack) Peek() (int, bool) {
 
 // Empty ...
 func (s *Stack) Empty() {
+	s.len = 0
 	s.top = nil
 }
 
