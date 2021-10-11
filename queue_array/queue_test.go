@@ -25,7 +25,6 @@ func TestDequeue(t *testing.T) {
 	q.Enqueue(5)
 
 	got, ok := q.Dequeue()
-
 	if !ok {
 		t.Error("no value dequeued")
 	}
