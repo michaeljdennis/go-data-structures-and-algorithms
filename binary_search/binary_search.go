@@ -16,18 +16,22 @@ func BinarySearch(l []int, n int) int {
 		return -1
 	}
 
-	return search(l, n, 0, l[len(l)-1])
+	return search(l, n, 0, len(l)-1)
 }
 
 func search(l []int, needle, low, high int) int {
-	mid := (low + high) / 2 // 5
+	if low == high {
+		return -1
+	}
+
+	mid := (low + high) / 2
 
 	if needle == l[mid] {
 		return mid
 	}
 
 	if needle < l[mid] {
-		return search(l, needle, 0, mid)
+		return search(l, needle, low, mid)
 	}
 
 	return search(l, needle, mid+1, len(l)-1)
